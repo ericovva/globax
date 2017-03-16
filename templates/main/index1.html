@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+
+{% block head %}
+    <script>
+        var ab = 0;
+        function go() {
+            var p = document.getElementById("P");
+            var reg = /(\d+)/;
+            var old = p.style.marginLeft || "0px";
+            var inn = 3;
+            if (ab == 200) { ab = 0 }
+            if (ab < 100 && ab > 50 ) { 
+                p.style.color = "red"; 
+                a = parseInt(Math.random() * 100); if (ab == 70) {
+                p.style.fontSize = a.toString() + "px"; }
+            } else { p.style.color = "black"; 
+                if (parseInt(reg.exec(old)) > 700) {
+                    inn =  -parseInt(reg.exec(old));
+                    var old_top = p.style.marginTop || "0px";
+                    p.style.marginTop = (parseInt(reg.exec(old_top)) + 30 ).toString() + "px";
+                }
+                p.style.marginLeft = (parseInt(reg.exec(old)) + inn ).toString() + "px";
+            } 
+            ab = ab + 1;
+        }
+        
+        var timer = setInterval(go, 1/30);
+    </script>
+{% endblock %}
+
+{% block content %}
+
+<div id = "P"> Петя жги </div>
+
+{% endblock %}
