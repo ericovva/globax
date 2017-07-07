@@ -1,0 +1,10 @@
+account yandex
+tls on
+tls_certcheck off
+auth on
+host smtp.yandex.ru
+port 587
+user info@g-m.ru
+from info@g-m.ru
+password qwerty7gas
+logfile /path/to/msmtp.log

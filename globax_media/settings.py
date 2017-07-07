@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'globax-media.ru',  # Allow domain and subdomains
+    'g-m.ru',
 	'127.0.0.1',
 ]
 
