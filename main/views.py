@@ -55,8 +55,8 @@ def send_email(request):
                 post['comment'] = ''
             if not 'path' in post:
                 post['path'] = ''
-            sender = 'mail@g-m.ru'
-            receivers = ["d.tergevorkov@gmail.com", "a-r-t-1@mail.ru", "ericovva@gmail.com", 'ericovva@yandex.ru']
+            sender = 'd-t@g-m.ru'
+            receivers = ["d.tergevorkov@gmail.com", "a-r-t-1@mail.ru", "ericovva@gmail.com", 'ericovva@yandex.ru', 'ericovva@g-m.ru']
             name = (u''+post['name']).encode('utf-8')
             comment = (u''+post['comment']).encode('utf-8')
             path = (u''+post['path']).encode('utf-8')
