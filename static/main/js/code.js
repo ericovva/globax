@@ -51,8 +51,6 @@ function clock() {
         drawSVG: total,
         ease: Expo.easeInOut
     });
-    console.log(total, progress);
-
 
 }
 
@@ -194,9 +192,10 @@ function change_page_stars() {
     
 }
 
-function change_color_of_stars(color = "0xffffff") {
+function change_color_of_stars(color = "ffffff") {
     var time = 500;
 
+    const hex_color = "0x" + color;
 
     if ($(".enter_page").length == 0) {
 
@@ -207,7 +206,7 @@ function change_color_of_stars(color = "0xffffff") {
             }, time)
             .start()
             .onComplete(function () {
-                starField.material.color.setHex(color);
+                starField.material.color.setHex(hex_color);
                 new TWEEN.Tween(starField.material)
                     .to({
                         opacity: 1
@@ -218,7 +217,7 @@ function change_color_of_stars(color = "0xffffff") {
             }, time)
             .start()
             .onComplete(function () {
-                hazars.material.color.setHex(color);
+                hazars.material.color.setHex(hex_color);
                 new TWEEN.Tween(hazars.material)
                     .to({
                         opacity: 1
@@ -226,18 +225,63 @@ function change_color_of_stars(color = "0xffffff") {
             });
 
     }
+    
+    
+    
+    var svg_color = "#" + color;
+    
+   
+
+    TweenMax.to("#logo_text_color", 0.5, {color:svg_color});
+    
+    if ( svg_color == "#ffffff" ) {
+        svg_color = "#3C4349";
+    }
+
+    TweenMax.to(".st0_1, .st1_1", 0.5, {fill:svg_color});
+
 
 }
 
 function change_background() {
     var slide = $(".active").index();
-    change_color_of_stars("0x" + colors[slide]);
+    change_color_of_stars(colors[slide]);
+    
+    
+    
+    function change_icon(img) {
+        TweenMax.to(".inside_icon", 0.5, {opacity:0, onComplete: function() {
+            var img_path = "url(/static/main/img/ICONS/without_lightning/" + img + ".png)";
+            console.log(img_path);
+            $(".inside_icon").css("background-image", img_path);
+            TweenMax.to(".inside_icon", 0.5, {opacity:1});
+        }});
+    }
+    
+    if (slide == 0) {
+        change_icon("supersite");
+    }
+    if (slide == 1) {
+        change_icon("city");
+    }
+    if (slide == 2) {
+        change_icon("bus");
+    }
+    if (slide == 3) {
+        change_icon("radio");
+    }
+    if (slide == 4) {
+        change_icon("city");
+    }
+    if (slide == 5) {
+        change_icon("smm");
+    }
+    if (slide == 6) {
+        change_icon("city");
+    }
+    
 
-    var color_of_logo = "#" + colors[slide];
-    TweenMax.to(".logo_circle .st0, .logo_circle .st1", 1, {
-        fill: color_of_logo
-    });
-
+   
     clock();
     switch_slides(slide);
 }
@@ -618,7 +662,7 @@ function menu_appear() {
         TweenMax.to(".menu_block", 1, {right:0})
     }
 
-if (window.location.pathname == "/" || window.location.pathname == "/service" ) { TweenMax.to(".menu .logo", 0.5, {opacity:0})}
+if (window.location.pathname == "/" ) { TweenMax.to(".menu .logo", 0.5, {opacity:0})}
 else { TweenMax.to(".menu .logo", 0.5, {opacity:1}) }
 }
 
@@ -660,27 +704,92 @@ function enter_page() {
 }
 
 
-function mainOne() {
+function mainOne(detach) {
     menu_appear();
     enter_page();
+    
+    // Кнопка для формы
+    $(".content_button").click(function() {
+        $(this).after(detach);
+        var check = $(this);
+        TweenMax.to($(this), 0.1, {opacity:0, onComplete:function() {
+            TweenMax.set(check, {display:"none"});
+            TweenMax.set(detach, {display:"flex", opacity:0, y:100});
+            TweenMax.to(detach, .5, {y:0, opacity:1});
+            const offset = $(".form_all").offset();
+            TweenLite.to(window, 1, {scrollTo:offset.top, ease:Power1.easeInOut});
+        }});
+        
+       
+        
+        detach.unbind("submit");
+        
+        detach.submit(function() {
+            var form_data = $(this).serialize();
+
+            var name = $("#form_name").val();
+            var phone = $("#form_phone").val();
+            var email = $("#form_email").val();
+            var comment = $("#form_comment").val();
+            var path = window.location.href;
+            
+            var take = $(this);
+
+            $.post( "/request/", {
+                name: name,
+                phone: phone,
+                email: email,
+                comment: comment,
+                path: path
+            })
+                .done(function( data ) {
+                console.log("done");
+                if (data['status'] == 'ok') {
+                    take.find(".output").text("Спасибо! Ваша заявка получена.")
+                } else {
+                    take.find(".output").text("Ошибка! Проверьте правильность заполнения полей.")
+                }
+            })
+                .fail(function() {
+                take.find(".output").text("Ошибка сервера! Попробуйте повторить попытку.")
+            })
+            $(this).find(".output").css("opacity", "1");
+            return false;
+        });
+        
+       
+    })
+    
+    //форма 
+    
+   
 
 
     // раскрывающийся список
-    $(".big_items .content_item").click(function () {
+    $(".big_items .content_item p:nth-child(1)").click(function () {
         
-            $(this).parent().find(".content_item").removeClass("opened");
-            $(this).parent().find(".item_inside").height(0);
-            $(this).addClass("opened");
+        if ( !$(this).parent().hasClass("opened") ) {
+            $(this).parent().addClass("opened");
+            $(this).parent().find(".item_inside").addClass("opened");
+            var height = $(this).parent().find(".flex_container_2_parts").outerHeight();
+            $(this).parent().find(".item_inside").height(height);
+            
+            if ($(window).width() < 600 ) {
+                const offset = $(this).offset();
+                TweenLite.to(window, 1, {scrollTo:offset.top, ease:Power1.easeInOut});
+            }
+    
+        }
+        else {
+            $(this).parent().removeClass("opened");
             $(this).parent().find(".item_inside").removeClass("opened");
-            $(this).find(".item_inside").addClass("opened");
-            var height = $(this).find(".flex_container_2_parts").outerHeight();
-            $(this).find(".item_inside").height(height);
-
+            $(this).parent().find(".item_inside").height(0);
+        }
 
 
     });
     
-    $(".big_items .content_item").eq(0).click();
+    $(".big_items .content_item p:nth-child(1)").eq(0).click();
 
     var open_page_tween = new TimelineMax();
     open_page_tween.staggerFrom(".content_section_line", 1.6, {
@@ -838,6 +947,16 @@ function mainOne() {
     if (window.location.pathname == "/about" || window.location.pathname == "/contacts") {
         change_color_of_stars();
     }
+    
+    if ( window.location.pathname == "/" ) {
+        $(".menu").css("background", "none")
+    }
+    else if ( $(window).width() < 600 ) {
+        $(".menu").css("background", "rgba(0,0,0,.9)");
+    }
+else {
+$(".menu").css("background", "none");
+}
 }
 
 
@@ -919,12 +1038,81 @@ var menu_button_lock = 0;
             }
         }
     });
+    
+    $(".menu_block a").click(function() {
+        if ( $(".menu").hasClass("opened") ) {
+            $(".menu").removeClass("opened");
+            TweenMax.staggerTo(".menu .container a", .5, {xPercent:-100, onComplete:function() {
+                TweenMax.set(".menu .container", {display:"none"});
+            }}, 0.1);
+        }
+    });
+    
+    // lite-версия
+    
+    
+    
+   
+    
+    function setCookie (name, value, expires, path, domain, secure) {
+        document.cookie = name + "=" + escape(value) +
+            ((expires) ? "; expires=" + expires : "") +
+            ((path) ? "; path=" + path : "") +
+            ((domain) ? "; domain=" + domain : "") +
+            ((secure) ? "; secure" : "");
+    };
 
+
+    function getCookie(name) {
+        var cookie = " " + document.cookie;
+        var search = " " + name + "=";
+        var setStr = null;
+        var offset = 0;
+        var end = 0;
+        if (cookie.length > 0) {
+            offset = cookie.indexOf(search);
+            if (offset != -1) {
+                offset += search.length;
+                end = cookie.indexOf(";", offset)
+                if (end == -1) {
+                    end = cookie.length;
+                }
+                setStr = unescape(cookie.substring(offset, end));
+            }
+        }
+        return(setStr);
+    }
+
+    if ( getCookie("foo") !== null ) {
+        $("#starForge_field").find("canvas").fadeOut(200);
+        $(".toggle_option").addClass("selected");
+    }
     
-   
-   
+    console.log(getCookie("foo"));
     
-    mainOne();
+    $(".toggle_option").click(function() {
+
+        if ( !$(this).hasClass("selected") ) {
+            $("#starForge_field").find("canvas").fadeOut(200);
+            $(this).addClass("selected");
+            setCookie("foo", "bar", "Mon, 01-Jan-2019 00:00:00 GMT", "/", "");
+        }
+        else {
+            $("#starForge_field").find("canvas").fadeIn(200);
+            $(this).removeClass("selected");
+            
+            setCookie("foo", "bar", "Mon, 01-Jan-2014 00:00:00 GMT", "/");
+        }
+        
+        console.log(getCookie("foo"));
+
+    });
+    
+        
+
+    var detach = $(".form_all").eq(0).detach();
+
+    mainOne(detach);
     
 
     
@@ -957,7 +1145,7 @@ var menu_button_lock = 0;
 
                   TweenMax.to($container, 0.3, {opacity: 1});
 
-                  mainOne();
+                  mainOne(detach);
                 }
               }
             },

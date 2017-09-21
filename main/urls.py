@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^nonstandard', views.nonstandard),
     url(r'^internet', views.internet),
     url(r'^creative_production', views.creative_production),
+    url(r'^request/$', views.send_email),
     url(r'^bc32571230aa.html', views.accept),
     url(r'^$', views.index, name='index'),
 #    url(r'^get_subcategories/([0-9]{1,5})', views.get_subcategories),

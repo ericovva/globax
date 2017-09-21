@@ -135,7 +135,6 @@ function init() {
     var stars_number = 900;
     var hazars_number = 100;
    
-    console.log(window.innerWidth);
     if (window.innerWidth < 500) {
          starSize = 1.5;
         hazarSize = 6;
@@ -254,8 +253,6 @@ function init() {
             starsGeometry.vertices.push(star)
 
         }
-         console.log("1441411441");
-        console.log(starSize);
 
         var starsMaterial = new THREE.PointsMaterial({
             color: 0xFFFFFF,
