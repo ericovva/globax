@@ -30,7 +30,7 @@ var star_state = 0;
 
 // контент
 function content_description() {
-    $(".content_list li").click(function () {
+    $(".content_list li").click(function() {
         $(this).find(".content_description").fadeToggle(200);
     });
 }
@@ -78,15 +78,15 @@ function circle_animation() {
             width: 400,
             height: 400,
             opacity: 0,
-            onComplete: function () {
+            onComplete: function() {
                 circle_outer.parentNode.removeChild(circle_outer);
             }
         });
     }
 
-    
 
-    $(".href").hover(function () {
+
+    $(".href").hover(function() {
         TweenMax.to(".clock__dial", 0.7, {
             opacity: 0
         });
@@ -94,7 +94,7 @@ function circle_animation() {
             opacity: 0
         });
         timerId = setInterval(circle_go, 700);
-    }, function () {
+    }, function() {
         TweenMax.to(".clock__dial", .7, {
             opacity: 1
         });
@@ -138,8 +138,8 @@ function go_stars() {
 
 function change_page_stars() {
     go_stars();
-    
-    
+
+
     if (star_state === 0) {
         new TWEEN.Tween(starField.position).to({
                 x: 100,
@@ -148,14 +148,13 @@ function change_page_stars() {
             .start();
 
         new TWEEN.Tween(hazars.position).to({
-                 x: 100,
+                x: 100,
                 y: 100
             }, 1000).easing(TWEEN.Easing.Quadratic.InOut)
             .start();
-        
+
         star_state = 1;
-    }
-    else if (star_state === 1) {
+    } else if (star_state === 1) {
         new TWEEN.Tween(starField.position).to({
                 x: -50,
                 y: -100
@@ -167,29 +166,27 @@ function change_page_stars() {
                 y: -100
             }, 1000).easing(TWEEN.Easing.Quadratic.InOut)
             .start();
-        
+
         star_state = 2;
-    }
-    
-    else if (star_state === 2) {
+    } else if (star_state === 2) {
         new TWEEN.Tween(starField.position).to({
                 x: 0,
                 y: 0,
-            z:0
+                z: 0
             }, 1000).easing(TWEEN.Easing.Quadratic.InOut)
             .start();
 
         new TWEEN.Tween(hazars.position).to({
                 x: 0,
                 y: 0,
-            z:0
+                z: 0
             }, 1000).easing(TWEEN.Easing.Quadratic.InOut)
             .start();
-        
+
         star_state = 0;
     }
-    
-    
+
+
 }
 
 function change_color_of_stars(color = "ffffff") {
@@ -205,7 +202,7 @@ function change_color_of_stars(color = "ffffff") {
                 opacity: 0.3
             }, time)
             .start()
-            .onComplete(function () {
+            .onComplete(function() {
                 starField.material.color.setHex(hex_color);
                 new TWEEN.Tween(starField.material)
                     .to({
@@ -216,7 +213,7 @@ function change_color_of_stars(color = "ffffff") {
                 opacity: 0.3
             }, time)
             .start()
-            .onComplete(function () {
+            .onComplete(function() {
                 hazars.material.color.setHex(hex_color);
                 new TWEEN.Tween(hazars.material)
                     .to({
@@ -225,20 +222,24 @@ function change_color_of_stars(color = "ffffff") {
             });
 
     }
-    
-    
-    
-    var svg_color = "#" + color;
-    
-   
 
-    TweenMax.to("#logo_text_color", 0.5, {color:svg_color});
-    
-    if ( svg_color == "#ffffff" ) {
+
+
+    var svg_color = "#" + color;
+
+
+
+    TweenMax.to("#logo_text_color", 0.5, {
+        color: svg_color
+    });
+
+    if (svg_color == "#ffffff") {
         svg_color = "#3C4349";
     }
 
-    TweenMax.to(".st0_1, .st1_1", 0.5, {fill:svg_color});
+    TweenMax.to(".st0_1, .st1_1", 0.5, {
+        fill: svg_color
+    });
 
 
 }
@@ -246,42 +247,47 @@ function change_color_of_stars(color = "ffffff") {
 function change_background() {
     var slide = $(".active").index();
     change_color_of_stars(colors[slide]);
-    
-    
-    
+
+
+
     function change_icon(img) {
-        TweenMax.to(".inside_icon", 0.5, {opacity:0, onComplete: function() {
-            var img_path = "url(/static/main/img/ICONS/without_lightning/" + img + ".png)";
-            console.log(img_path);
-            $(".inside_icon").css("background-image", img_path);
-            TweenMax.to(".inside_icon", 0.5, {opacity:1});
-        }});
+        TweenMax.to(".inside_icon", 0.5, {
+            opacity: 0,
+            onComplete: function() {
+                var img_path = "url(/static/main/img/ICONS/without_lightning/" + img + ".png)";
+                console.log(img_path);
+                $(".inside_icon").css("background-image", img_path);
+                TweenMax.to(".inside_icon", 0.5, {
+                    opacity: 1
+                });
+            }
+        });
     }
-    
+
     if (slide == 0) {
-        change_icon("supersite");
+        change_icon("outdoor");
     }
     if (slide == 1) {
         change_icon("city");
     }
     if (slide == 2) {
-        change_icon("bus");
+        change_icon("transport");
     }
     if (slide == 3) {
-        change_icon("radio");
+        change_icon("smi");
     }
     if (slide == 4) {
-        change_icon("city");
+        change_icon("graffiti");
     }
     if (slide == 5) {
-        change_icon("smm");
+        change_icon("internet");
     }
     if (slide == 6) {
         change_icon("city");
     }
-    
 
-   
+
+
     clock();
     switch_slides(slide);
 }
@@ -352,7 +358,7 @@ function appear_labels(big_label, small_label, clock_big_label, clock_small_labe
     tweenie.to("#number_this", 0.5, {
             y: -30,
             alpha: 0,
-            onComplete: function () {
+            onComplete: function() {
                 $("#number_this").text(slide)
             }
         })
@@ -375,7 +381,7 @@ function appear_labels(big_label, small_label, clock_big_label, clock_small_labe
         })
         .to(".clock_big_label", 0.3, {
             y: -50,
-            onComplete: function () {
+            onComplete: function() {
                 $(".clock_big_label").text(clock_big_label);
             }
         })
@@ -389,7 +395,7 @@ function appear_labels(big_label, small_label, clock_big_label, clock_small_labe
         .to(".clock_small_label", 0.5, {
             y: 30,
             alpha: 0,
-            onComplete: function () {
+            onComplete: function() {
                 $(".clock_small_label").text(clock_small_label);
             }
         })
@@ -407,7 +413,7 @@ function appear_labels(big_label, small_label, clock_big_label, clock_small_labe
         })
         .to(".enter", 1, {
             opacity: 0,
-            onComplete: function () {
+            onComplete: function() {
                 TweenMax.to(".enter", 0.5, {
                     opacity: 1
                 });
@@ -635,35 +641,51 @@ var handler_resize;
 
 function menu_appear() {
     if (window.location.pathname == "/") {
-        
+
         handler_resize = function() {
-            if ( $(window).width() > 800 ) {
+            if ($(window).width() > 800) {
                 let indent = ($(".menu .container").outerWidth() / 2 - $(".menu_block").outerWidth() / 2) + "px";
                 $(".menu_block").css("right", indent);
-                
-                if ( $(window).width <= 800) {
-                    TweenMax.set(".menu_block", {right:0});
+
+                if ($(window).width <= 800) {
+                    TweenMax.set(".menu_block", {
+                        right: 0
+                    });
                 }
             }
-            
+
         };
-        
+
         handler_resize();
-        
-        $(window).bind( "resize", handler_resize );
-        TweenMax.to(".menu .logo", 0.3, {opacity: 0});
-        
-    }
-    else {
-        TweenMax.to(".menu .logo", .5, {opacity:1});
-        
-        $(window).unbind( "resize", handler_resize );
-        TweenMax.to(".menu .logo", 0.3, {opacity: 1});
-        TweenMax.to(".menu_block", 1, {right:0})
+
+        $(window).bind("resize", handler_resize);
+        TweenMax.to(".menu .logo", 0.3, {
+            opacity: 0
+        });
+
+    } else {
+        TweenMax.to(".menu .logo", .5, {
+            opacity: 1
+        });
+
+        $(window).unbind("resize", handler_resize);
+        TweenMax.to(".menu .logo", 0.3, {
+            opacity: 1
+        });
+        TweenMax.to(".menu_block", 1, {
+            right: 0
+        })
     }
 
-if (window.location.pathname == "/" ) { TweenMax.to(".menu .logo", 0.5, {opacity:0})}
-else { TweenMax.to(".menu .logo", 0.5, {opacity:1}) }
+    if (window.location.pathname == "/") {
+        TweenMax.to(".menu .logo", 0.5, {
+            opacity: 0
+        })
+    } else {
+        TweenMax.to(".menu .logo", 0.5, {
+            opacity: 1
+        })
+    }
 }
 
 function enter_page() {
@@ -679,7 +701,7 @@ function enter_page() {
             ease: Power2.easeInOut
         });
 
-    $(".enter_page_button").click(function () {
+    $(".enter_page_button").click(function() {
         var tl = new TimelineMax();
         tl.to(".enter_page_button", 0.3, {
                 opacity: 0
@@ -707,23 +729,38 @@ function enter_page() {
 function mainOne(detach) {
     menu_appear();
     enter_page();
-    
+
     // Кнопка для формы
     $(".content_button").click(function() {
         $(this).after(detach);
         var check = $(this);
-        TweenMax.to($(this), 0.1, {opacity:0, onComplete:function() {
-            TweenMax.set(check, {display:"none"});
-            TweenMax.set(detach, {display:"flex", opacity:0, y:100});
-            TweenMax.to(detach, .5, {y:0, opacity:1});
-            const offset = $(".form_all").offset();
-            TweenLite.to(window, 1, {scrollTo:offset.top, ease:Power1.easeInOut});
-        }});
-        
-       
-        
+        TweenMax.to($(this), 0.1, {
+            opacity: 0,
+            onComplete: function() {
+                TweenMax.set(check, {
+                    display: "none"
+                });
+                TweenMax.set(detach, {
+                    display: "flex",
+                    opacity: 0,
+                    y: 100
+                });
+                TweenMax.to(detach, .5, {
+                    y: 0,
+                    opacity: 1
+                });
+                const offset = $(".form_all").offset();
+                TweenLite.to(window, 1, {
+                    scrollTo: offset.top,
+                    ease: Power1.easeInOut
+                });
+            }
+        });
+
+
+
         detach.unbind("submit");
-        
+
         detach.submit(function() {
             var form_data = $(this).serialize();
 
@@ -732,55 +769,57 @@ function mainOne(detach) {
             var email = $("#form_email").val();
             var comment = $("#form_comment").val();
             var path = window.location.href;
-            
+
             var take = $(this);
 
-            $.post( "/request/", {
-                name: name,
-                phone: phone,
-                email: email,
-                comment: comment,
-                path: path
-            })
-                .done(function( data ) {
-                console.log("done");
-                if (data['status'] == 'ok') {
-                    take.find(".output").text("Спасибо! Ваша заявка получена.")
-                } else {
-                    take.find(".output").text("Ошибка! Проверьте правильность заполнения полей.")
-                }
-            })
+            $.post("/request/", {
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    comment: comment,
+                    path: path
+                })
+                .done(function(data) {
+                    console.log("done");
+                    if (data['status'] == 'ok') {
+                        take.find(".output").text("Спасибо! Ваша заявка получена.")
+                    } else {
+                        take.find(".output").text("Ошибка! Проверьте правильность заполнения полей.")
+                    }
+                })
                 .fail(function() {
-                take.find(".output").text("Ошибка сервера! Попробуйте повторить попытку.")
-            })
+                    take.find(".output").text("Ошибка сервера! Попробуйте повторить попытку.")
+                })
             $(this).find(".output").css("opacity", "1");
             return false;
         });
-        
-       
+
+
     })
-    
+
     //форма 
-    
-   
+
+
 
 
     // раскрывающийся список
-    $(".big_items .content_item p:nth-child(1)").click(function () {
-        
-        if ( !$(this).parent().hasClass("opened") ) {
+    $(".big_items .content_item p:nth-child(1)").click(function() {
+
+        if (!$(this).parent().hasClass("opened")) {
             $(this).parent().addClass("opened");
             $(this).parent().find(".item_inside").addClass("opened");
             var height = $(this).parent().find(".flex_container_2_parts").outerHeight();
             $(this).parent().find(".item_inside").height(height);
-            
-            if ($(window).width() < 600 ) {
+
+            if ($(window).width() < 600) {
                 const offset = $(this).offset();
-                TweenLite.to(window, 1, {scrollTo:offset.top, ease:Power1.easeInOut});
+                TweenLite.to(window, 1, {
+                    scrollTo: offset.top,
+                    ease: Power1.easeInOut
+                });
             }
-    
-        }
-        else {
+
+        } else {
             $(this).parent().removeClass("opened");
             $(this).parent().find(".item_inside").removeClass("opened");
             $(this).parent().find(".item_inside").height(0);
@@ -788,8 +827,8 @@ function mainOne(detach) {
 
 
     });
-    
-    $(".big_items .content_item p:nth-child(1)").eq(0).click();
+
+    $(".big_items .content_item p:nth-child(1)").click();
 
     var open_page_tween = new TimelineMax();
     open_page_tween.staggerFrom(".content_section_line", 1.6, {
@@ -842,7 +881,7 @@ function mainOne(detach) {
         mc.add(swipe);
 
         // subscribe to events
-        mc.on('swipeup', function (e) {
+        mc.on('swipeup', function(e) {
             // do something cool
 
             var select = $(".active").next();
@@ -853,7 +892,7 @@ function mainOne(detach) {
         });
 
 
-        mc.on('swipedown', function (e) {
+        mc.on('swipedown', function(e) {
             // do something cool
 
             var select = $(".active").prev();
@@ -898,8 +937,8 @@ function mainOne(detach) {
         go_change_position(0, begin);
     }
 
-    
-    $(".panel").click(function () {
+
+    $(".panel").click(function() {
         var select = $(this);
         choose_softly(select);
     });
@@ -907,7 +946,7 @@ function mainOne(detach) {
 
 
 
-    $('.first_section').on('mousewheel', function (event) {
+    $('.first_section').on('mousewheel', function(event) {
         console.log(event.deltaX * event.deltaFactor);
         if (event.deltaY === 1) {
             var select = $(".active").prev();
@@ -928,14 +967,14 @@ function mainOne(detach) {
         });
     });
 
-    $('.up').click(function () {
+    $('.up').click(function() {
         var select = $(".active").prev();
         if (!select.length) {
             select = $('.panel:last');
         }
         choose_softly(select);
     });
-    $('.down').click(function () {
+    $('.down').click(function() {
         var select = $(".active").next();
         if (!select.length) {
             select = $('.panel:first');
@@ -943,36 +982,64 @@ function mainOne(detach) {
         choose_softly(select);
 
     });
-    
-    if (window.location.pathname == "/about" || window.location.pathname == "/contacts") {
+
+    if (window.location.pathname == "/about" || window.location.pathname == "/contacts" || window.location.pathname == "/") {
         change_color_of_stars();
     }
-    
-    if ( window.location.pathname == "/" ) {
+
+    if (window.location.pathname == "/") {
         $(".menu").css("background", "none")
-    }
-    else if ( $(window).width() < 600 ) {
+
+        function test() {
+            var hex_color = "0xffffff";
+            var time = 500;
+
+            new TWEEN.Tween(starField.material)
+                .to({
+                    opacity: 0.3
+                }, time)
+                .start()
+                .onComplete(function() {
+                    starField.material.color.setHex(hex_color);
+                    new TWEEN.Tween(starField.material)
+                        .to({
+                            opacity: 1
+                        }, time).start();
+                });
+            new TWEEN.Tween(hazars.material).to({
+                    opacity: 0.3
+                }, time)
+                .start()
+                .onComplete(function() {
+                    hazars.material.color.setHex(hex_color);
+                    new TWEEN.Tween(hazars.material)
+                        .to({
+                            opacity: 1
+                        }, time).start();
+                });
+        }
+        test();
+    } else if ($(window).width() < 600) {
         $(".menu").css("background", "rgba(0,0,0,.9)");
+    } else {
+        $(".menu").css("background", "none");
     }
-else {
-$(".menu").css("background", "none");
-}
 }
 
 
-$(document).ready(function () {
-$(".menu a").each(function () {
+$(document).ready(function() {
+    $(".menu a").each(function() {
 
         const line_bottom_left = $(this).find(".line_bottom_left");
         const line_left = $(this).find(".line_left");
         const line_top_right = $(this).find(".line_top_right");
-         const line_top_left = $(this).find(".line_top_left");
+        const line_top_left = $(this).find(".line_top_left");
         const line_right = $(this).find(".line_right");
         const line_bottom_right = $(this).find(".line_bottom_right");
-    
-    const lines_top = $(this).find(".line_top_left, .line_top_right");
-    const lines_sides = $(this).find(".line_left, .line_right");
-    const lines_bottom = $(this).find(".line_bottom_left, .line_bottom_right");
+
+        const lines_top = $(this).find(".line_top_left, .line_top_right");
+        const lines_sides = $(this).find(".line_left, .line_right");
+        const lines_bottom = $(this).find(".line_bottom_left, .line_bottom_right");
 
         const time = 0.1;
 
@@ -990,71 +1057,93 @@ $(".menu a").each(function () {
             .to(lines_bottom, time, {
                 width: "50%",
                 ease: Power0
-        }, "+=0.05")
-    .to($(this).find("span"), 0.3, {backgroundColor: "#fff"});
+            }, "+=0.05")
+            .to($(this).find("span"), 0.3, {
+                backgroundColor: "#fff"
+            });
 
-        $(this).hover(function () {
+        $(this).hover(function() {
 
             tween.play();
-        }, function () {
+        }, function() {
             tween.reverse();
         });
 
     });
-    
-var menu_button_lock = 0;   
-    
+
+    var menu_button_lock = 0;
+
     $(".menu_button").click(function() {
         if (menu_button_lock == 0) {
-            if ( $(".menu").hasClass("opened") ) {
+            if ($(".menu").hasClass("opened")) {
                 $(".menu").removeClass("opened");
-                TweenMax.staggerTo(".menu .container a", .5, {xPercent:-100, onComplete:function() {
-                    TweenMax.set(".menu .container", {display:"none"});
-                }}, 0.1);
-            }
-            else {
+                TweenMax.staggerTo(".menu .container a", .5, {
+                    xPercent: -100,
+                    onComplete: function() {
+                        TweenMax.set(".menu .container", {
+                            display: "none"
+                        });
+                    }
+                }, 0.1);
+            } else {
                 $(".menu").addClass("opened");
-                TweenMax.set(".menu .container", {display:"block"});
-                TweenMax.staggerTo(".menu .container a", .5, {xPercent:0}, 0.1);
+                TweenMax.set(".menu .container", {
+                    display: "block"
+                });
+                TweenMax.staggerTo(".menu .container a", .5, {
+                    xPercent: 0
+                }, 0.1);
             }
-            
+
             menu_button_lock = 1;
-            setTimeout(function() { menu_button_lock = 0}, 1000);
- }
-        });
-       
-        
-            
-       
-    
-    $(document).mouseup(function (e) {
+            setTimeout(function() {
+                menu_button_lock = 0
+            }, 1000);
+        }
+    });
+
+
+
+
+
+    $(document).mouseup(function(e) {
         var container = $(".menu");
-        if (container.has(e.target).length === 0){
-            if ( $(".menu").hasClass("opened") ) {
+        if (container.has(e.target).length === 0) {
+            if ($(".menu").hasClass("opened")) {
                 $(".menu").removeClass("opened");
-                TweenMax.staggerTo(".menu .container a", .5, {xPercent:-100, onComplete:function() {
-                    TweenMax.set(".menu .container", {display:"none"});
-                }}, 0.1);
+                TweenMax.staggerTo(".menu .container a", .5, {
+                    xPercent: -100,
+                    onComplete: function() {
+                        TweenMax.set(".menu .container", {
+                            display: "none"
+                        });
+                    }
+                }, 0.1);
             }
         }
     });
-    
+
     $(".menu_block a").click(function() {
-        if ( $(".menu").hasClass("opened") ) {
+        if ($(".menu").hasClass("opened")) {
             $(".menu").removeClass("opened");
-            TweenMax.staggerTo(".menu .container a", .5, {xPercent:-100, onComplete:function() {
-                TweenMax.set(".menu .container", {display:"none"});
-            }}, 0.1);
+            TweenMax.staggerTo(".menu .container a", .5, {
+                xPercent: -100,
+                onComplete: function() {
+                    TweenMax.set(".menu .container", {
+                        display: "none"
+                    });
+                }
+            }, 0.1);
         }
     });
-    
+
     // lite-версия
-    
-    
-    
-   
-    
-    function setCookie (name, value, expires, path, domain, secure) {
+
+
+
+
+
+    function setCookie(name, value, expires, path, domain, secure) {
         document.cookie = name + "=" + escape(value) +
             ((expires) ? "; expires=" + expires : "") +
             ((path) ? "; path=" + path : "") +
@@ -1080,83 +1169,88 @@ var menu_button_lock = 0;
                 setStr = unescape(cookie.substring(offset, end));
             }
         }
-        return(setStr);
+        return (setStr);
     }
 
-    if ( getCookie("foo") !== null ) {
+    if (getCookie("foo") !== null) {
         $("#starForge_field").find("canvas").fadeOut(200);
         $(".toggle_option").addClass("selected");
     }
-    
+
     console.log(getCookie("foo"));
-    
+
     $(".toggle_option").click(function() {
 
-        if ( !$(this).hasClass("selected") ) {
+        if (!$(this).hasClass("selected")) {
             $("#starForge_field").find("canvas").fadeOut(200);
             $(this).addClass("selected");
             setCookie("foo", "bar", "Mon, 01-Jan-2019 00:00:00 GMT", "/", "");
-        }
-        else {
+        } else {
             $("#starForge_field").find("canvas").fadeIn(200);
             $(this).removeClass("selected");
-            
+
             setCookie("foo", "bar", "Mon, 01-Jan-2014 00:00:00 GMT", "/");
         }
-        
+
         console.log(getCookie("foo"));
 
     });
-    
-        
+
+
 
     var detach = $(".form_all").eq(0).detach();
 
     mainOne(detach);
-    
 
-    
+
+
     var slide_global = 0;
 
-    
 
-      var $page = $('#ajax_contain'),
-            options = {
-              debug: true,
-              prefetch: true,
-              cacheLength: 2,
-              onStart: {
-                  
+
+    var $page = $('#ajax_contain'),
+        options = {
+            debug: true,
+            prefetch: true,
+            cacheLength: 2,
+            onStart: {
+
 
                 duration: 300, // Duration of our animation
-                render: function ($container) {
-                  // Add your CSS animation reversing class
-                   
-                 change_page_stars();
-                  TweenMax.to($container, 0.3, {opacity: 0});
-                }
-              },
-              onReady: {
-                duration: 300,
-                render: function ($container, $newContent) {
-                    clearTimeout(timerId);
-                  // Inject the new content
-                  $container.html($newContent);
+                render: function($container) {
+                    // Add your CSS animation reversing class
 
-                  TweenMax.to($container, 0.3, {opacity: 1});
-
-                  mainOne(detach);
+                    change_page_stars();
+                    TweenMax.to($container, 0.3, {
+                        opacity: 0
+                    });
                 }
-              }
             },
-            smoothState = $page.smoothState(options).data('smoothState');
+            onReady: {
+                duration: 300,
+                render: function($container, $newContent) {
+                    clearTimeout(timerId);
+                    // Inject the new content
+                    $container.html($newContent);
 
-      $('.menu a').click(function(e){
-             e.preventDefault();
-             var content  = $('#ajax_contain').smoothState().data('smoothState');
-             var href = $(this).attr('href');
-             content.load(href);
-       });
-    
+                    TweenMax.to($container, 0.3, {
+                        opacity: 1
+                    });
+
+                    mainOne(detach);
+
+                    console.log(window.location.pathname);
+                }
+            },
+        },
+        smoothState = $page.smoothState(options).data('smoothState');
+
+    $('.menu a').click(function(e) {
+        e.preventDefault();
+        var content = $('#ajax_contain').smoothState().data('smoothState');
+        var href = $(this).attr('href');
+        content.load(href);
+    });
+
 
 });

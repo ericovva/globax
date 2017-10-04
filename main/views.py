@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader, Context
-import smtplib
+from django.core.mail import send_mail
 import json
 from django.views.decorators.csrf import csrf_exempt
 import logging
@@ -60,28 +60,32 @@ def send_email(request):
             name = (u''+post['name']).encode('utf-8')
             comment = (u''+post['comment']).encode('utf-8')
             path = (u''+post['path']).encode('utf-8')
+            message = None
             try:
-                message = """From: From {} <{}>
-To: Globax Media
-Subject: Заявка c сайтa
-ФИО: {}
-Email: {}
-Телефон: {}
-Комментарий: {}
-Со страницы: {}
-                """.format( name, post['email'], name, post['email'],post['phone'], comment, path )
+                message = """
+<div style="border: 2px green solid; width: 100%; text-align: center; font-size: 23px; ">
+    <strong> Клиент оставил заявку </strong>
+</div> 
+<br> <br>
+<div style="font-size: 18px;">
+    ФИО: {} <br>
+    Email: {} <br>
+    Телефон: {} <br>
+    Комментарий: {} <br>
+    Заявка со страницы: {} <br>
+</div>
+                """.format( name, post['email'],post['phone'], comment, path )
             except Exception as e:
                 return HttpResponse(json.dumps({'status': 'error', 'mes': 'Неверныe данные' }), content_type='application/json')
             try:
-               #from django.core.mail import send_mail
-               #send_mail("Заявка c сайтa", message, sender, receivers)
-               server = smtplib.SMTP("localhost")
-               #server = smtplib.SMTP("smtp.yandex.ru:465")
-               #server.starttls()
-               #server.ehlo()
-               #server.login("ericovva@g-m.ru", "qwerty7gas")
-               server.sendmail(sender, receivers, message)
-               server.quit()
+               send_mail(
+                    'Заявка от клиента {}'.format(name), 
+                    '',
+                    'notification@g-m.ru',
+                    ["d.tergevorkov@gmail.com", "a-r-t-1@mail.ru", "ericovva@gmail.com", 'ericovva@yandex.ru', 'ericovva@g-m.ru', 'dt@g-m.ru'],
+                    fail_silently=False, 
+                    html_message='<div>{}</div>.'.format(message)
+               )
                logger.info("Заявка отправлена  от {} ".format(name))
                return HttpResponse(json.dumps({'status': 'ok', 'redir': post['path'] }), content_type='application/json')
             except Exception as e:

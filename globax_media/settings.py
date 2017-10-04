@@ -114,9 +114,18 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#email
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST_USER = 'notification@g-m.ru'
+EMAIL_HOST_PASSWORD = 'qwerty7gas'
+EMAIL_PORT = '465'
+EMAIL_USE_SSL = True
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'ru'
+
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -124,13 +133,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_HOST = 'localhost'#"smtp.yandex.ru"
-EMAIL_HOST = 'smtp.yandex.ru:465'
-EMAIL_PORT = '465'
-EMAIL_HOST_USER = 'ericovva@g-m.ru'
-EMAIL_HOST_PASSWORD = 'qwerty7gas'
-EMAIL_USE_TLS = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

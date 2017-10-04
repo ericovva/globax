@@ -42,6 +42,15 @@ h6 {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'yu_gothiclight';
+    src: url('../fonts/yugothic/yugothil-webfont.woff2') format('woff2'),
+         url('../fonts/yugothic/yugothil-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 h1,h2,h3,h4,h5,h6 {
     font-weight: 600;
 }
@@ -107,20 +116,66 @@ iframe {
     position: relative;
     z-index: 10;
     text-align: center;
-    font-family: "Museo Sans Cyrl";
+    font-family: "Roboto";
     color: #fff;
+
+    .enter_header {
+        font-size: 11px;
+        font-weight: 300;
+        font-family: "Roboto";
+        margin-bottom: 20px;
+        letter-spacing: 4px;
+    }
+
     h3 {
         opacity: 0;
         font-size: 36px;
-        letter-spacing: 2px;
+        font-family: "Roboto";
+        color: #48A4C8;
+        font-weight: 300;
+        letter-spacing: 10px;
         text-transform: uppercase;
     }
     @media screen and (max-width:600px) {
         h3 {
             font-size: 24px;
-            text-transform: none;
+            letter-spacing: 5px;
         }
     }
+}
+
+.flex_row_2 {
+    display: flex;
+    justify-content: space-between;
+
+    .column {
+        display: flex;
+        align-items: center;
+    }
+    .column:nth-child(2) {
+        text-align: right;
+
+    }
+
+    @media screen and (max-width:800px) {
+        flex-wrap: wrap;
+        .column {
+            width: 100%;
+        }
+    }
+}
+
+.section_image {
+    position: relative;
+    display: inline-block;
+    float: right;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 250px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .enter_page_button {
@@ -239,7 +294,6 @@ $background_color_for_lines: #fff;
     background-position: center;
     background-repeat: no-repeat;
     margin: 0 auto;
-    margin-bottom: 30px;
     svg {
         width: 200px;
         @media screen and (max-width:600px) {
@@ -1930,6 +1984,26 @@ $background_color_for_lines: #fff;
             background-position: center;
         }
     }
+
+    &.no_wrap_4 {
+        display: flex;
+        flex-wrap: wrap;
+
+        .content_img.right {
+            height: 120px;
+            width: calc(50% - 3px);
+            background-position: center;
+        }
+
+        .content_img.right:nth-child(2n-1) {
+            background-position: left;
+            margin-right: 5px;
+        }
+
+        .content_img.right:nth-child(2n) {
+            background-position: right;
+        }
+    }
     
     
 }
@@ -2278,12 +2352,18 @@ $background_color_for_lines: #fff;
     }
     
     .inside_icon {
-        width: 100px;
-        height: 90px;
+        width: 110px;
+        height: 110px;
         background: url(../img/ICONS/without_lightning/supersite.png);
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
+
+        @media screen and (min-width:1600px) {
+            margin-top: 20px;
+            width:200px;
+            height:200px;
+        }
         
         @media screen and (max-width: 900px) {
             width:70px;
@@ -2713,5 +2793,15 @@ $background_color_for_lines: #fff;
     background-size: contain;
     background-repeat: no-repeat;
     margin-bottom: 10px;
+}
+
+.index_logo {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0 auto;
 }
 
