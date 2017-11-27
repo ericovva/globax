@@ -800,35 +800,46 @@ function mainOne(detach) {
     //форма 
 
 
+function open_extended_item(item,time,offset) {
+
+    if (!$(item).parent().hasClass("opened")) {
+            $(item).parent().addClass("opened");
+            $(item).parent().find(".item_inside").addClass("opened");
+            var height = $(item).parent().find(".flex_container_2_parts").outerHeight();
+
+            TweenLite.to($(item).parent().find(".item_inside"),time,{height:height});
+
+            if (offset) {
+
+                if ($(window).width() < 600) {
+                    const offset = $(item).offset();
+                    TweenLite.to(window, 1, {
+                        scrollTo: offset.top,
+                        ease: Power1.easeInOut
+                    });
+                }
+            }
+
+        } else {
+            $(item).parent().removeClass("opened");
+            $(item).parent().find(".item_inside").removeClass("opened");
+            TweenLite.to($(item).parent().find(".item_inside"),time,{height:0});
+        }
+
+}
 
 
     // раскрывающийся список
     $(".big_items .content_item p:nth-child(1)").click(function() {
 
-        if (!$(this).parent().hasClass("opened")) {
-            $(this).parent().addClass("opened");
-            $(this).parent().find(".item_inside").addClass("opened");
-            var height = $(this).parent().find(".flex_container_2_parts").outerHeight();
-            $(this).parent().find(".item_inside").height(height);
-
-            if ($(window).width() < 600) {
-                const offset = $(this).offset();
-                TweenLite.to(window, 1, {
-                    scrollTo: offset.top,
-                    ease: Power1.easeInOut
-                });
-            }
-
-        } else {
-            $(this).parent().removeClass("opened");
-            $(this).parent().find(".item_inside").removeClass("opened");
-            $(this).parent().find(".item_inside").height(0);
-        }
-
-
+        open_extended_item(this,0.5,true);
     });
 
-    $(".big_items .content_item p:nth-child(1)").click();
+    $(".big_items .content_item p:nth-child(1)").each(function(){
+        open_extended_item(this,0,false);
+    });
+
+
 
     var open_page_tween = new TimelineMax();
     open_page_tween.staggerFrom(".content_section_line", 1.6, {
@@ -1238,6 +1249,8 @@ $(document).ready(function() {
                     });
 
                     mainOne(detach);
+
+                    
 
                     console.log(window.location.pathname);
                 }

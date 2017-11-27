@@ -2198,7 +2198,7 @@ $background_color_for_lines: #fff;
     height: 0;
     opacity: 0;
     transform-origin: top center;
-    transition: all 500ms;
+    transition: all 500ms height 0ms;
     overflow: hidden;
     
     p, li {
@@ -2361,9 +2361,16 @@ $background_color_for_lines: #fff;
 
         @media screen and (min-width:1600px) {
             margin-top: 20px;
+            width:180px;
+            height:180px;
+        }
+
+        @media screen and (min-width:1800px) {
+            margin-top: 20px;
             width:200px;
             height:200px;
         }
+        
         
         @media screen and (max-width: 900px) {
             width:70px;
