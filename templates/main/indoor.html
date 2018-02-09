@@ -2,11 +2,30 @@
 
 {% block head %}
    <title>Indoor</title>
+   <meta name="description" 
+   content="Indoor - это реклама на вокзалах, ЖД станциях, в аэропортах, бизнес центрах, ТРЦ, супермаркетах, детских садах, школах, ВУЗах, АЗС, фитнес-клубах, подъездах жилых домов, ресторанах, клубах, поликлиниках, в частных медицинских центрах, салонах красоты, во многих других местах скопления людей, а также реклама, размещенная на квитанциях ЖКХ. "
+>
+<meta name="keywords" content="indoor, световая реклама, брендирование, 3d спикер, реклама в метро, реклама в такси, реклама в транспорте, indoor реклама, наружная световая реклама, реклама +в метро, реклама +на транспорте">
 {% endblock %}
 
 {% block content %}
 
 <div class="content_section_small">
+
+  <div class="arrow_container">
+      <a href="/service" class="">
+        <img src="/static/main/img/right-arrow.svg" class="arrow_left" alt="">
+        <br>
+        <span style="
+            position: relative;
+            top: -20px;
+            font-size: 14px;
+            text-align: center;
+            /* width: 100%; */
+            left: 5px;
+        ">вернуться</span>
+      </a>
+  </div>
 
 
   <div class="content_container_2">
@@ -51,8 +70,10 @@
 </div>
       <div class="flex_container_items big_items">
         <div class="content_item">
-
-          <p>
+          <div class="flex_container_2part">
+            <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/lightbox%201.png)"></div>
+        </div>
+          <p class="item-p-11">
             <span>01</span>
             Световая реклама (лайтбоксы)
 
@@ -65,19 +86,17 @@
                     Световыми рекламными носителями являются лайтбоксы. Их, чаще всего, располагают в местах большого скопления людей - это фудкорты торговых центров, рецепция фитнес клубов, места ожидания в аэропортах и на вокзалах, лифтовые холлы в бизнес центрах, рестораны и т.д.
                 </p>
               </div>
-              <div class="flex_container_2part">
-                  <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/lightbox%201.png)"></div>
-    
-             
-              </div>
+              
             </div>
-
-
           </div>
         </div>
         <div class="content_item">
-
-          <p>
+          <div class="flex_container_2part no_wrap">
+            <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/poster.png)"></div>
+            <!-- <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/stand.png)"></div> -->
+            
+        </div>
+          <p class="item-p-11">
               <span>02</span>
             Несветовая реклама (стенды, рамки, плакаты, стойки с полиграфией и тд)
           </p>
@@ -89,11 +108,7 @@
                     К несветовым рекламным носителям относят стенды, рамки и плакаты под оргстеклом или без него, а также напольные конструкции (ролл-апы). Чаще всего несветовая реклама размещается в школах, ВУЗах, бизнес центрах, АЗС, ТЦ и ТРЦ, лифтах, в подъездах жилых домов и в других помещениях с большой проходимостью.
                 </p>
               </div>
-              <div class="flex_container_2part no_wrap">
-                  <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/poster.png)"></div>
-                  <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/stand.png)"></div>
-                  
-              </div>
+              
               
             </div>
 
@@ -101,8 +116,12 @@
           </div>
         </div>
         <div class="content_item">
+          <div class="flex_container_2part no_wrap">
+            <!-- <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/lift.png)"></div> -->
+            <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/escalator.png)"></div>
 
-          <p>
+        </div>
+          <p class="item-p-11">
               <span>03</span>
             Брендирование эскалаторов, лифтовых кабин
           </p>
@@ -114,19 +133,16 @@
                     Брендирование - один из наиболее масштабных и эффектных видов размещения индор рекламы. Это оклейка в фирменные стили лифтовых кабин, эскалаторов в торговых и бизнес центрах, в аэропортах и на вокзалах. Также можно забрендировать пропускные кабины на платных трассах Московской Области.
                 </p>
               </div>
-                <div class="flex_container_2part no_wrap">
-                  <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/lift.png)"></div>
-                  <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/escalator.png)"></div>
-
-              </div>
             </div>
 
 
           </div>
         </div>
         <div class="content_item">
-
-          <p>
+          <div class="flex_container_2part">
+            <div class="content_img right small" style="background-image:url(/static/main/img/ICONS/with_lightning/floor%203D.png)"></div>
+        </div>
+          <p class="item-p-11">
             <span>04</span>
             Размещение напольных 3D стикеров в торговых центрах и супермаркетах
           </p>
@@ -138,10 +154,7 @@
                     Интересный и запоминающийся носитель, который может служить как имиджевой рекламой, так и указателем в необходимую точку расположения магазина или продукта. Обычно размещаются в торговых центрах и супермаркетах. За счет своей необычности легко привлекают внимание и запоминаются посетителями.
                 </p>
               </div>
-              <div class="flex_container_2part">
-                  <div class="content_img right small" style="background-image:url(/static/main/img/ICONS/with_lightning/floor%203D.png)"></div>
-
-              </div>
+              
             </div>
 
 
@@ -150,22 +163,22 @@
         
         <div class="content_item">
 
-          <p>
+          <div class="flex_container_2part">
+            <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/promo%20action.png)"></div>
+          </div>
+          <p class="item-p-11">
             <span>05</span>
             Проведение промо-акций, организация мероприятий
           </p>
           <div class="item_inside">
-
             <div class="flex_container_2_parts">
               <div class="flex_container_1part">
                 <p class="content_sub_header">
                     К данному виду рекламы можно отнести раздачу листовок, пробников продукции (семплинг), и установку промо-стойки (промо-акция). Проведение подобных мероприятий является одним из эффективных способов донесения информации до потребителя посредством визуального и тактильного контакта с продуктом. Промоутер все наглядно покажет и расскажет потребителю, что значительно увеличит интерес к Вашему продукту.
                 </p>
               </div>
-              <div class="flex_container_2part">
-                  <div class="content_img right" style="background-image:url(/static/main/img/ICONS/with_lightning/promo%20action.png)"></div>
-
-              </div>
+              
+              
             </div>
 
 

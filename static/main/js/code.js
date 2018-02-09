@@ -225,21 +225,21 @@ function change_color_of_stars(color = "ffffff") {
 
 
 
-    var svg_color = "#" + color;
+    // var svg_color = "#" + color;
 
 
 
-    TweenMax.to("#logo_text_color", 0.5, {
-        color: svg_color
-    });
+    // TweenMax.to("#logo_text_color", 0.5, {
+    //     color: svg_color
+    // });
 
-    if (svg_color == "#ffffff") {
-        svg_color = "#3C4349";
-    }
+    // if (svg_color == "#ffffff") {
+    //     svg_color = "#3C4349";
+    // }
 
-    TweenMax.to(".st0_1, .st1_1", 0.5, {
-        fill: svg_color
-    });
+    // TweenMax.to(".st0_1, .st1_1", 0.5, {
+    //     fill: svg_color
+    // });
 
 
 }
@@ -802,12 +802,12 @@ function mainOne(detach) {
 
 function open_extended_item(item,time,offset) {
 
-    if (!$(item).parent().hasClass("opened")) {
-            $(item).parent().addClass("opened");
-            $(item).parent().find(".item_inside").addClass("opened");
-            var height = $(item).parent().find(".flex_container_2_parts").outerHeight();
+    if (!$(item).find(".item_inside").hasClass("opened")) {
+            $(item).find(".item_inside").addClass("opened");
+            // $(item).find(".item_inside").addClass("opened");
+            var height = $(item).find(".flex_container_2_parts").outerHeight();
 
-            TweenLite.to($(item).parent().find(".item_inside"),time,{height:height});
+            TweenLite.to($(item).find(".item_inside"),time,{height:height+15});
 
             if (offset) {
 
@@ -821,21 +821,21 @@ function open_extended_item(item,time,offset) {
             }
 
         } else {
-            $(item).parent().removeClass("opened");
-            $(item).parent().find(".item_inside").removeClass("opened");
-            TweenLite.to($(item).parent().find(".item_inside"),time,{height:0});
+            $(item).find(".item_inside").removeClass("opened");
+            $(item).find(".item_inside").removeClass("opened");
+            TweenLite.to($(item).find(".item_inside"),time,{height:0});
         }
 
 }
 
 
     // раскрывающийся список
-    $(".big_items .content_item p:nth-child(1)").click(function() {
+    $(".content_item").click(function() {
 
         open_extended_item(this,0.5,true);
     });
 
-    $(".big_items .content_item p:nth-child(1)").each(function(){
+    $(".content_item").each(function(){
         open_extended_item(this,0,false);
     });
 
@@ -949,10 +949,37 @@ function open_extended_item(item,time,offset) {
     }
 
 
-    $(".panel").click(function() {
+    // $(".panel").click(function() {
+    //     var select = $(this);
+    //     choose_softly(select);
+
+        
+        
+    // });
+
+    $('.panel').on('click', function(event) {
+        if ($(this).hasClass('active')) {            
+            window.location.replace($('.href').attr('href'));
+        }
         var select = $(this);
         choose_softly(select);
+        
     });
+
+    // $('.panel').on('click', function(event) {
+    //     event.preventDefault();
+    //     // if ($(this).hasClass('prev') || $(this).hasClass('next') || $(this).hasClass('active')) {
+    //     if ($(this).hasClass('active')) {            
+    //         window.location.replace($('.href').attr('href'));
+    //     } else {
+    //         return 0;
+    //     }
+    // });
+
+    // $(".panel").click(function(e) {
+    //     e.preventDefault();
+        
+    // });
 
 
 
@@ -1039,6 +1066,23 @@ function open_extended_item(item,time,offset) {
 
 
 $(document).ready(function() {
+    if ($(window).width() > 900) {
+        var maxContentItem = 0;
+        $(".content_item>.flex_container_2part").each(function() {
+            if ($(this).height() > maxContentItem) {
+                maxContentItem = $(this).height();
+            }
+        });
+
+        $(".content_item>.flex_container_2part").each(function() {
+            $(this).css('height', maxContentItem+'px');
+        });
+
+    }
+
+   
+
+
     $(".menu a").each(function() {
 
         const line_bottom_left = $(this).find(".line_bottom_left");
@@ -1073,12 +1117,55 @@ $(document).ready(function() {
                 backgroundColor: "#fff"
             });
 
-        $(this).hover(function() {
-
-            tween.play();
-        }, function() {
-            tween.reverse();
+        $(this).click(function() {
+            if (!$(this).hasClass('selected_menu')) {
+                tween.reverse();
+            }
+            
         });
+
+        $(this).hover(function() {
+            
+            if ($(this).hasClass('logo')) {
+                return 0;
+            }
+            if (!$(this).hasClass('selected_menu')) {
+                tween.play();
+                
+                if ($(this).hasClass('toggle_agency')) {
+                    $('.submenu_agency').fadeIn(400);
+                    $('#menu_1_1').play();
+                    $('#menu_1_2').play();
+                }
+            }
+            
+        }, function() {
+            if (!$(this).hasClass('selected_menu')) {
+
+                tween.reverse();
+                if ($(this).hasClass('toggle_agency')) {
+                    $('.submenu_agency').fadeOut(300);
+                    $('#menu_1_1').reverse();
+                    $('#menu_1_2').reverse();
+                    $(this).reverse();
+                }
+    
+                if ($(this) == $('#menu_1_1')) {
+                    $('toggle_agency').play();
+                }
+    
+                if ($(this) == $('#menu_1_2')) {
+                    $('toggle_agency').play();
+                }
+            }
+            // if ($(this).hasClass('selected_menu')) {
+            //     return 0;
+            // }
+            
+            
+        });
+
+        
 
     });
 
@@ -1146,6 +1233,25 @@ $(document).ready(function() {
                 }
             }, 0.1);
         }
+        $(".menu_block").find('.selected_menu').removeClass('selected_menu');
+
+        // $(".menu_block a").each(function(){
+        //     $(this).reverse();
+        // });
+
+        // $('#menu_1').trigger('click');
+        // $('#menu_2').trigger('click');
+        // $('#menu_3').trigger('click');
+
+        // $('.menu_block a').mouseleave();
+
+        $(this).addClass('selected_menu');
+
+        
+
+        
+        
+
     });
 
     // lite-версия
@@ -1263,6 +1369,12 @@ $(document).ready(function() {
         var content = $('#ajax_contain').smoothState().data('smoothState');
         var href = $(this).attr('href');
         content.load(href);
+    });
+
+
+
+    $(".item_inside").each(function() {
+        $(this).removeClass('opened').css('height',0);
     });
 
 
